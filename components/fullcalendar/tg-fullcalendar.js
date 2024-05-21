@@ -1,11 +1,7 @@
-
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Calendar } from '@fullcalendar/core';
+import '@fullcalendar/web-component/global.js';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import bootstrap5Plugin from '@fullcalendar/bootstrap5'
+import listPlugin from '@fullcalendar/list'
 
 import '../tg-dropdown-switch.js';
 import '../../layout/tg-flex-layout.js';
@@ -97,7 +93,7 @@ const template = html`
         <span class="centre-toolbar" pos="center">[[calendarTitle]]</span>
         <tg-dropdown-switch view-index="0" views="[[viewTypes]]" button-width="40" change-current-view-on-select on-tg-centre-view-change="_changeView"></tg-dropdown-switch>
     </tg-flex-layout>
-    <div id="calendarContainer"></div>
+    <full-calendar shadow id="calendar"></full-calendar>
     <iron-dropdown id="dropdown" horizontal-align="left" restore-focus-on-close always-on-top>
         <div class="legend-content" slot="dropdown-content">
             <template is="dom-repeat" items="[[_calcLegendItems(entities, colorProperty, colorTitleProperty, colorDescProperty)]]">
@@ -194,9 +190,8 @@ export class TgFullcalendar extends mixinBehaviors([IronResizableBehavior], Poly
         this._mobileToolbarLayout = [['justified', 'center', [], []], ['select:pos=center']];
 
         // configures calendar
-        this._calendar = new Calendar(this.$.calendarContainer, {
-            plugins: [ dayGridPlugin, timeGridPlugin, listPlugin, bootstrap5Plugin ],
-            themeSystem: 'bootstrap5',
+        this.$.calendar.options = {
+            plugins: [ dayGridPlugin, timeGridPlugin, listPlugin],
             initialView: 'dayGridMonth',
             headerToolbar: false,
             datesSet: (dataInfo) => {
@@ -220,8 +215,8 @@ export class TgFullcalendar extends mixinBehaviors([IronResizableBehavior], Poly
             },
             height: 'auto',
             firstDay: this._appConfig.firstDayOfWeek
-          });
-          this._calendar.render();
+          };
+          this._calendar = this.$.calendar.getApi();
           this.currentView = 'dayGridMonth';
           //Initialising edit action
           this._editAction = this.$.editActionSlot.assignedNodes()[0];

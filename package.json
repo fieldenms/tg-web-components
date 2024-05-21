@@ -1,15 +1,12 @@
 {
   "name": "@fieldenms/tg-web-components",
   "version": "1.0.0",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "test": "exit 0"
   },
   "type": "module",
   "keywords": [],
-  "author": "",
+  "author": "TG-TEAM",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,13 +14,11 @@
   },
   "dependencies": {
     "@fieldenms/tg-polymer": "^1.0.0",
-    "@fullcalendar/bootstrap5": "^6.1.11",
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/list": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
+    "@fullcalendar/web-component": "^6.1.11",
     "d3": "^7.9.0",
     "event-source-polyfill": "^1.0.31",
     "file-saver": "^2.0.5",
