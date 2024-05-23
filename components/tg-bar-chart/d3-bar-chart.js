@@ -72,17 +72,6 @@ const fireLabelPlacedEvent = (eventName, newRequiredMargin, chartArea) => {
     });
     chartArea.dispatchEvent(event);
 }
-
-const BarMode = {
-    STACKED: "stacked",
-    GROUPED: "grouped"
-};
-
-const LabelOrientation = {
-    HORIZONTAL: "horizontal",
-    VERTICAL: "vertical"
-};
-
 class BarChart {
 
     constructor(container, options, data) {
@@ -184,17 +173,17 @@ class BarChart {
             .scaleExtent([1, 10])
             .translateExtent([[0, 0], [0, this._actualHeight]])
             .extent([[0, 0], [0, this._actualHeight]])
-            .filter(() => {
-                return !d3.event.button && (d3.event.type !== "wheel" || d3.event.altKey);
+            .filter((e) => {
+                return !e.button && (e.type !== "wheel" || e.altKey);
             })
-            .on("zoom", () => {
-                this._currentTransform = d3.event.transform;
+            .on("zoom", (e) => {
+                this._currentTransform = e.transform;
                 this._yAxisGroup.call(this._yAxis.scale(this._currentTransform.rescaleY(this._ys)));
                 this._yGridGroup.call(this._yGrid.scale(this._currentTransform.rescaleY(this._ys)));
                 this._barContainer.attr("transform", "translate(0, " + this._currentTransform.y + ")scale(1, " + this._currentTransform.k + ")");
                 this._unscale();
             });
-        this._chartArea.call(this._zoom).on("dblclick.zoom", null).on("wheel", function() { d3.event.altKey && d3.event.preventDefault(); });
+        this._chartArea.call(this._zoom).on("dblclick.zoom", null).on("wheel", function(e) { e.altKey && e.preventDefault(); });
     }
 
     repaint(resetState) {
@@ -525,8 +514,8 @@ class BarChart {
     
     _insertNewBar(selection) {
         const self = this;
-        const newBars = selection.append("rect").attr("class", "bar").on("click", function (d) {
-                if (d3.event.button == 0 && (d3.event.ctrlKey || d3.event.metaKey)) {
+        const newBars = selection.append("rect").attr("class", "bar").on("click", function (e, d) {
+                if (e.button == 0 && (e.ctrlKey || e.metaKey)) {
                     const val = value(self._options.dataPropertyNames.valueProps[d.idx], d.data);
                     const markerIdEnding = self._options.mode === BarMode.GROUPED ?  d.idx : (val >= 0 ? 1 : -1);
                     const markerId = "#marker_" + value(self._options.dataPropertyNames.id, d.data) + "_" + markerIdEnding;
@@ -799,7 +788,7 @@ class BarChart {
     }
 }
 
-d3.barChart = (container, options, data) => {
+export function barChart(container, options, data) {
     const barChart = new BarChart(container, options, data);
 
     const chart = {
@@ -829,5 +818,12 @@ d3.barChart = (container, options, data) => {
     return chart;
 };
 
-d3.barChart.BarMode = BarMode;
-d3.barChart.LabelOrientation = LabelOrientation;
+export const LabelOrientation = {
+    HORIZONTAL: "horizontal",
+    VERTICAL: "vertical"
+};
+
+export const BarMode = {
+    STACKED: "stacked",
+    GROUPED: "grouped"
+};

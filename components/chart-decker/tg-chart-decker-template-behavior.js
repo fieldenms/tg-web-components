@@ -3,6 +3,7 @@ import { TgAppConfig } from '/app/tg-app-config.js';
 import { TgEntityMasterTemplateBehavior} from '../../master/tg-entity-master-template-behavior.js';
 import { tearDownEvent } from '../../reflection/tg-polymer-utils.js';
 import {_momentTz, _millisDateRepresentation} from '../../reflection/tg-date-utils.js';
+import { BarMode } from '../tg-bar-chart/d3-bar-chart.js'
 
 const generateActionTooltip = function (action) {
     const shortDesc = "<b>" + action.shortDesc + "</b>";
@@ -93,7 +94,7 @@ const TgChartDeckerTemplateBehaviorImpl = {
     },
 
     _labelFormatter: function (entity, idx, propertyNames, propertyTypes, mode) {
-        if (mode == d3.barChart.BarMode.STACKED) {
+        if (mode == BarMode.STACKED) {
             const res = propertyNames.map((prop, i) => propertyTypes[i] === "Money" ? this._moneyPropAccessor(prop)(entity, entity.get(prop)) : entity.get(prop));
             const resPos = res.filter(val => val > 0).reduce((a,b) => a + b, 0);
             const resNeg = res.filter(val => val < 0).reduce((a,b) => a + b, 0);

@@ -1,7 +1,7 @@
 import '@fieldenms/tg-polymer/polymer/polymer-legacy.js';
 import '@fieldenms/tg-polymer/iron-flex-layout/iron-flex-layout.js';
 
-import  './d3-bar-chart.js';
+import  { barChart } from './d3-bar-chart.js';
 
 import {IronResizableBehavior} from '@fieldenms/tg-polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 import {Polymer} from '@fieldenms/tg-polymer/polymer/lib/legacy/polymer-fn.js';
@@ -166,7 +166,7 @@ Polymer({
     behaviors: [IronResizableBehavior],
 
     ready: function () {
-        this._chart = d3.barChart(this.$.chart);
+        this._chart = barChart(this.$.chart);
         if (this.data) {
             this._chart.data(this.data);
         }
