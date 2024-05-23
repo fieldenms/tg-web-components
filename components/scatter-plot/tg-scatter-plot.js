@@ -5,7 +5,8 @@ import '@fieldenms/tg-polymer/iron-flex-layout/iron-flex-layout.js';
 
 import {IronResizableBehavior} from '@fieldenms/tg-polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 
-import  './d3-scatter-plot.js';
+import { scatterPlot, SCATTER_PLOT_SHAPES } from './d3-scatter-plot.js';
+import { d3 } from '../d3-lib.js';
 
 const template = html`
     <style>
@@ -143,7 +144,7 @@ export class TgScatterPlot extends mixinBehaviors([IronResizableBehavior], Polym
 
     ready () {
         super.ready();
-        this._chart = d3.scatterPlot(this.$.chart);
+        this._chart = scatterPlot(this.$.chart);
         if (this.data) {
             this._chart.data(this.data);
         }
@@ -234,7 +235,7 @@ export class TgScatterPlot extends mixinBehaviors([IronResizableBehavior], Polym
     }
 
     _calcLegendItemPath (style) {
-        return d3.symbol().type(d3.scatterPlot.shapes[style.shape]).size(style.size)();
+        return d3.symbol().type(SCATTER_PLOT_SHAPES[style.shape]).size(style.size)();
     } 
     
     _calcLegendItemStyle (style) {

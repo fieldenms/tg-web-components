@@ -127,17 +127,17 @@ class ScatterPlot {
             .scaleExtent([1, 10])
             .translateExtent([[0, 0], [this._actualWidth, 0]])
             .extent([[0, 0], [this._actualWidth, 0]])
-            .filter(() => {
-                return !d3.event.button && (d3.event.type !== "wheel" || d3.event.altKey);
+            .filter((e) => {
+                return !e.button && (e.type !== "wheel" || e.altKey);
             })
-            .on("zoom", () => {
-                this._currentTransform = d3.event.transform;
+            .on("zoom", (e) => {
+                this._currentTransform = e.transform;
                 this._xAxisGroup.call(this._xAxis.scale(this._currentTransform.rescaleX(this._xs)));
                 this._xGridGroup.call(this._xGrid.scale(this._currentTransform.rescaleX(this._xs)));
                 this._zoomDataContainer();
                 //this._dataContainer.attr("transform", "translate(" + this._currentTransform.x + ", 0)scale(" + this._currentTransform.k + ", 1)");
             });
-        this._chartArea.call(this._zoom).on("dblclick.zoom", null).on("wheel", function () { d3.event.altKey && d3.event.preventDefault(); });
+        this._chartArea.call(this._zoom).on("dblclick.zoom", null).on("wheel", function (e) { e.altKey && e.preventDefault(); });
     }
 
     repaint(resetState) {
@@ -428,8 +428,8 @@ class ScatterPlot {
     }
 
     _insertNewData(selection) {
-        selection.append("path").attr("class", "dot").on("click", d => {
-            if (d3.event.button === 0 ) {
+        selection.append("path").attr("class", "dot").on("click", (e,d) => {
+            if (e.button === 0 ) {
                 this._options.click(d.data);
             }
         }).call(this._updateData.bind(this));
@@ -460,7 +460,7 @@ class ScatterPlot {
     }
 }
 
-d3.scatterPlot = (container, options) => {
+export function scatterPlot (container, options) {
     const scatterPlot = new ScatterPlot(container, options);
 
     const chart = {
@@ -494,4 +494,4 @@ d3.scatterPlot = (container, options) => {
     return chart;
 };
 
-d3.scatterPlot.shapes = Symbols;
+export const SCATTER_PLOT_SHAPES = Symbols;
