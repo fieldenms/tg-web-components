@@ -6,8 +6,6 @@ import '@fieldenms/tg-polymer/paper-button/paper-button.js';
 import '@fieldenms/tg-polymer/paper-spinner/paper-spinner.js';
 import '@fieldenms/tg-polymer/paper-styles/color.js';
 
-import '../components/postal-lib.js';
-
 import { TgFocusRestorationBehavior } from './tg-focus-restoration-behavior.js';
 import { TgElementSelectorBehavior } from '../components/tg-element-selector-behavior.js';
 import { tearDownEvent, getFirstEntityType, deepestActiveElement } from '../reflection/tg-polymer-utils.js';

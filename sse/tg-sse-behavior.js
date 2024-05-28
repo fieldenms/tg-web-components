@@ -1,7 +1,5 @@
 import '@fieldenms/tg-polymer/polymer/polymer-legacy.js';
 
-import '../components/postal-lib.js';
-
 import { random } from '../reflection/tg-numeric-utils.js';
 
 export const TgSseBehavior = {

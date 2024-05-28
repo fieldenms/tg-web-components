@@ -1,5 +1,3 @@
-import '../components/postal-lib.js';
-
 import { TgEntityMasterBehavior, focusEnabledInputIfAny } from '../master/tg-entity-master-behavior.js';
 import { TgEntityBinderBehavior } from '../binding/tg-entity-binder-behavior.js';
 import { queryElements } from '../components/tg-element-selector-behavior.js';

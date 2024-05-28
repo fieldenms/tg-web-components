@@ -8,7 +8,6 @@ import '@fieldenms/tg-polymer/paper-button/paper-button.js';
 import '@fieldenms/tg-polymer/paper-spinner/paper-spinner.js';
 import '@fieldenms/tg-polymer/paper-styles/color.js';
 
-import '../../components/postal-lib.js';
 import '../../components/tg-dropdown-switch.js';
 
 import {MasterActionOptions} from '/app/tg-app-config.js';

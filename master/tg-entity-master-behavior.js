@@ -1,6 +1,4 @@
 import '../egi/tg-custom-action-dialog.js';
-import '../components/postal-lib.js';
-
 import { tearDownEvent, deepestActiveElement, FOCUSABLE_ELEMENTS_SELECTOR, isMobileApp, getParentAnd } from '../reflection/tg-polymer-utils.js';
 import {createDialog} from '../egi/tg-dialog-util.js';
 import { TgEntityBinderBehavior } from '../binding/tg-entity-binder-behavior.js';

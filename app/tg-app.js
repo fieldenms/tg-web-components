@@ -161,6 +161,12 @@ function skipHistoryAction (overlay) {
     return typeof overlay.skipHistoryAction === 'function' && overlay.skipHistoryAction();
 }
 
+const Workflows = {
+    development: 'development',
+    deployment: 'deployment',
+    vulcanizing: 'vulcanizing'
+};
+
 Polymer({
 
     _template: template,
@@ -193,6 +199,25 @@ Polymer({
         },
         appTitle: String,
         entityType: String,
+
+        /**
+         * Determines whether component is used in development or deployment workflow. 
+         * This is needed, for example, to determine whether to override console.log function or not.
+         * Default workflow is development
+         */
+        workflow: {
+            type: String,
+            value: Workflows.development,
+            observer: '_workflowChanged'
+        },
+
+        /**
+         * Saves the common console.log function.
+         */
+        _commonLog: {
+            type: Function,
+            value: null
+        },
 
         _manager: {
             type: Object,
@@ -246,6 +271,18 @@ Polymer({
         "menu-item-selected": "_showView",
         "menu-search-list-closed": "_restoreLastFocusedElement",
         "tg-module-menu-closed": "_restoreLastFocusedElement"
+    },
+
+    created: function() {
+        this._commonLog = console.log;
+    },
+
+    _workflowChanged: function (newWorkflow) {
+        if (newWorkflow === Workflows.deployment || newWorkflow === Workflows.vulcanizing) {
+            console.log = () => {};
+        } else {
+            console.log = this._commonLog;
+        }
     },
 
     _searchMenu: function (event) {

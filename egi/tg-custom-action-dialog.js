@@ -13,7 +13,6 @@ import '@fieldenms/tg-polymer/paper-styles/paper-styles-classes.js';
 import '../element_loader/tg-element-loader.js';
 import '../components/tg-toast.js';
 import '/resources/images/tg-icons.js';
-import '../components/postal-lib.js';
 
 import {IronOverlayBehavior, IronOverlayBehaviorImpl} from '@fieldenms/tg-polymer/iron-overlay-behavior/iron-overlay-behavior.js';
 import { IronOverlayManager } from '@fieldenms/tg-polymer/iron-overlay-behavior/iron-overlay-manager.js';
